@@ -1,0 +1,14 @@
+{
+  "height": "1.7",
+  "weight": "66",
+  "headCircumference": "54",
+  "dateProgress": "2015-01-01",
+  "account": {
+    "id": "1",
+    "firstName": "Admin",
+    "lastName": "Test",
+    "email": "test@test.com",
+    "dateBirth": "1900-01-01",
+    "gender": "M"
+  }
+}
