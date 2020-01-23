@@ -7,9 +7,24 @@ import progressRouter from "./routes/progressRouter";
 import progressModel from "./model/progressModel";
 
 const app = express();
-mongoose.connect(process.env.MONGODB_URI);
+
+mongoose.connect(process.env.MONGODB_URI,{
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    reconnectTries: Number.MAX_VALUE,
+    reconnectInterval: 500, // Reconnect every 500ms
+    connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
+    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, "Erro de conexão."))
+db.once('open', function() {
+    console.log('MongoDB connection opened!');
+});
+db.on('reconnected', function() {
+    console.log('MongoDB reconnected!');
+});
 
 let progress = new progressModel(dataProgress);
 progress.save(err => {
